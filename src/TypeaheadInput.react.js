@@ -7,48 +7,48 @@ import Loader from './Loader.react';
 import HintedInput from './HintedInput.react';
 import Token from './Token.react';
 
-import {getOptionLabel} from './utils/';
+import { getOptionLabel } from './utils/';
 import typeaheadInputContainer from './containers/typeaheadInputContainer';
 
 class TypeaheadInput extends React.Component {
-  render() {
-    const {
-      bsSize,
-      disabled,
-      hintText,
-      inputRef,
-      isFocused,
-      multiple,
-      name,
-      onBlur,
-      onChange,
-      onContainerClickOrFocus,
-      onFocus,
-      onKeyDown,
-      placeholder,
-      selected,
-      value,
-    } = this.props;
+    render() {
+        const {
+            bsSize,
+            disabled,
+            hintText,
+            inputRef,
+            isFocused,
+            multiple,
+            name,
+            onBlur,
+            onChange,
+            onContainerClickOrFocus,
+            onFocus,
+            onKeyDown,
+            placeholder,
+            selected,
+            value,
+        } = this.props;
 
-    const inputProps = {
-      ...this.props.inputProps,
-      disabled,
-      hintText,
-      inputRef,
-      isFocused,
-      multiple,
-      name: name || this.props.inputProps.name,
-      onBlur,
-      onChange,
-      onClick: onFocus,
-      onFocus,
-      onKeyDown,
-      placeholder,
-      value,
-    };
+        const inputProps = {
+            ...this.props.inputProps,
+            disabled,
+            hintText,
+            inputRef,
+            isFocused,
+            multiple,
+            name: name || this.props.inputProps.name,
+            onBlur,
+            onChange,
+            onClick: onFocus,
+            onFocus,
+            onKeyDown,
+            placeholder,
+            value,
+        };
 
-    return (
-      <div
+        return (
+            <div
         className={cx('rbt-input', 'form-control', {
           'focus': isFocused,
           'input-lg form-control-lg': bsSize === 'large' || bsSize === 'lg',
@@ -65,49 +65,49 @@ class TypeaheadInput extends React.Component {
         </div>
         {this._renderAux()}
       </div>
-    );
-  }
-
-  _renderToken = (option, idx) => {
-    const {disabled, inputProps, labelKey, onRemove, renderToken} = this.props;
-    const onRemoveWrapped = () => onRemove(option);
-
-    if (typeof renderToken === 'function') {
-      return renderToken(option, onRemoveWrapped, idx);
+        );
     }
 
-    return (
-      <Token
+    _renderToken = (option, idx) => {
+        const { disabled, inputProps, labelKey, onRemove, renderToken } = this.props;
+        const onRemoveWrapped = () => onRemove(option);
+
+        if (typeof renderToken === 'function') {
+            return renderToken(option, onRemoveWrapped, idx);
+        }
+
+        return (
+            <Token
         disabled={disabled}
         key={idx}
         onRemove={onRemoveWrapped}
         tabIndex={inputProps.tabIndex}>
         {getOptionLabel(option, labelKey)}
       </Token>
-    );
-  }
-
-  _renderAux = () => {
-    const {
-      bsSize,
-      clearButton,
-      disabled,
-      isLoading,
-      onClear,
-      selected,
-    } = this.props;
-
-    if (isLoading) {
-      return (
-        <div className="rbt-aux">
-          <Loader bsSize={bsSize} />
-        </div>
-      );
+        );
     }
 
-    if (clearButton && !disabled && selected.length) {
-      return (
-        <div className="rbt-aux">
+    _renderAux = () => {
+        const {
+            bsSize,
+            clearButton,
+            disabled,
+            isLoading,
+            onClear,
+            selected,
+        } = this.props;
+
+        if (isLoading) {
+            return (
+                <div className="rbt-aux">
+          <Loader bsSize={bsSize} />
+        </div>
+            );
+        }
+
+        if (clearButton && !disabled && selected.length) {
+            return (
+                <div className="rbt-aux">
           <ClearButton
             bsSize={bsSize}
             onClick={onClear}
@@ -117,17 +117,17 @@ class TypeaheadInput extends React.Component {
             }}
           />
         </div>
-      );
+            );
+        }
     }
-  }
 }
 
 TypeaheadInput.propTypes = {
-  /**
-   * Provides a hook for customized rendering of tokens when multiple
-   * selections are enabled.
-   */
-  renderToken: PropTypes.func,
+    /**
+     * Provides a hook for customized rendering of tokens when multiple
+     * selections are enabled.
+     */
+    renderToken: PropTypes.func,
 };
 
 export default typeaheadInputContainer(TypeaheadInput);
